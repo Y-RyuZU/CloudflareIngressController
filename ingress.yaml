@@ -12,8 +12,8 @@ spec:
     - host: youtrack.ryuzu.dev
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          - pathType: Prefix
+            path: "/"
             backend:
               service:
                 name: youtrack-entrypoint
