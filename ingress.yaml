@@ -19,7 +19,7 @@ spec:
               service:
                 name: argocd-server
                 port:
-                  number:
+                  number: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -43,3 +43,26 @@ spec:
                 name: youtrack-entrypoint
                 port:
                   number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: kube-system
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "cloudflare-tunnel"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+spec:
+  ingressClassName: cloudflare-tunnel
+  rules:
+    - host: dashboard.k8s.ryuzu.dev
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443
