@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: youtrack
+spec:
+  tls:
+    - hosts:
+        - argocd.ryuzu.dev
+      secretName: ryuzu-dev-tls-secret
+  rules:
+    - host: youtrack.ryuzu.dev
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: youtrack-entrypoint
+                port:
+                  number: 8080

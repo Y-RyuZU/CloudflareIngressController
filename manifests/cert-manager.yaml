@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuers
+metadata:
+  name: cloudflare-origin-ca
+spec:
+  CA:
+    secretName: cloudflare-certification-api-token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ryuzu-dev-tls
+  namespace: default
+spec:
+  secretName: ryuzu-dev-tls-secret
+  commonName: ryuzu.dev
+  dnsNames:
+    - ryuzu.dev
+  issuerRef:
+    name: cloudflare-origin-ca
+    kind: ClusterIssuer

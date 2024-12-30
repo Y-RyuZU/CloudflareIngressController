@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: kube-system
+spec:
+  tls:
+    - hosts:
+        - argocd.ryuzu.dev
+      secretName: ryuzu-dev-tls-secret
+  rules:
+    - host: dashboard.k8s.ryuzu.dev
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: kubernetes-dashboard
+                port:
+                  number: 443

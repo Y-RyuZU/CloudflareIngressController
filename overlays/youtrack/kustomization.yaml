@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+patches:
+  - target:
+      kind: Ingress
+      namespace: youtrack
+      name: ingress
+    path: patch.yaml

@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+patches:
+  - target:
+      kind: Ingress
+      namespace: kube-system
+      name: ingress
+    path: patch.yaml
