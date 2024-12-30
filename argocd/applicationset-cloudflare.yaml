@@ -1,18 +1,35 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: argocd-applications
+  name: cloudflare-ingress-controller-applications
   namespace: argocd
 spec:
-  project: default
-  source:
-    repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
-    targetRevision: HEAD
-    path: argocd/applicationset-cloudflare.yaml
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  generators:
+    - list:
+        elements:
+          - name: youtrack
+            path: overlays/youtrack
+            namespace: youtrack
+          - name: argocd
+            path: overlays/argocd
+            namespace: argocd
+          - name: kube-system
+            path: overlays/kube-system
+            namespace: kube-system
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: argocd
+    spec:
+      project: default
+      source:
+        repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
