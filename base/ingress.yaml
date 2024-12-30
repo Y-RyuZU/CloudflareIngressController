@@ -4,6 +4,7 @@ metadata:
   name: ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubenetes.io/backend-protocol: "HTTP"
     kubernetes.io/ingress.class: "cloudflare-tunnel"
 spec:
   ingressClassName: cloudflare-tunnel
