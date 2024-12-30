@@ -5,20 +5,14 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - list:
-        elements:
-          - name: cloudflare-ingress-youtrack
-            path: overlays/youtrack
-            namespace: youtrack
-          - name: cloudflare-ingress-argocd
-            path: overlays/argocd
-            namespace: argocd
-          - name: cloudflare-ingress-kube-system
-            path: overlays/kube-system
-            namespace: kube-system
+    - git:
+        repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
+        revision: HEAD
+        directories:
+          - path: overlays/*
   template:
     metadata:
-      name: '{{name}}'
+      name: '{{path.basename}}'
       labels:
         app.kubernetes.io/managed-by: argocd
     spec:
@@ -29,7 +23,7 @@ spec:
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{namespace}}'
+        namespace: '{{path.basename}}'
       syncPolicy:
         automated:
           prune: true
