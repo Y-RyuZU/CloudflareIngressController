@@ -7,10 +7,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - dashboard.k8s.ryuzu.dev
+        - kubedash.k8s.ryuzu.dev
       secretName: ryuzu-dev-tls-secret
   rules:
-    - host: dashboard.k8s.ryuzu.dev
+    - host: kubedash.ryuzu.dev
       http:
         paths:
           - pathType: Prefix
