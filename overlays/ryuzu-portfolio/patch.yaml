@@ -7,16 +7,16 @@ metadata:
 spec:
   tls:
     - hosts:
-        - kubedash.ryuzu.dev
+        - ryuzu.dev
       secretName: ryuzu-dev-tls-secret
   rules:
-    - host: kubedash.ryuzu.dev
+    - host: ryuzu.dev
       http:
         paths:
           - pathType: Prefix
             path: "/"
             backend:
               service:
-                name: kubernetes-dashboard
+                name: ryuzu-portfolio-service
                 port:
                   number: 443
