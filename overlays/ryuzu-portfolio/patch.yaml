@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: ingress
   annotations:
-    nginx.ingress.kubenetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubenetes.io/backend-protocol: "HTTP"
 spec:
   tls:
     - hosts:
@@ -19,4 +19,4 @@ spec:
               service:
                 name: ryuzu-portfolio-service
                 port:
-                  number: 443
+                  number: 3000

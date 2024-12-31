@@ -7,9 +7,14 @@ spec:
   generators:
     - git:
         repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
-        revision: HEAD
+        revision: main
         directories:
           - path: overlays/*
+    - git:
+        repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
+        revision: main
+        files:
+          - path: applicationset-cloudflare.yaml
   template:
     metadata:
       name: '{{path.basename}}'
@@ -19,7 +24,7 @@ spec:
       project: default
       source:
         repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
-        targetRevision: HEAD
+        targetRevision: main
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
