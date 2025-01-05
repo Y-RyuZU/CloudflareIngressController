@@ -6,10 +6,15 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
+        repoURL: 'https://github.com/Y-RyuZU/CloudflareIngressController.git'
         revision: HEAD
         directories:
           - path: overlays/*
+    - git:
+        repoURL: 'https://github.com/Y-RyuZU/CloudflareIngressController.git'
+        revision: HEAD
+        files:
+          - path: applicationset-cloudflare.yaml
   template:
     metadata:
       name: '{{path.basename}}'
@@ -18,7 +23,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
+        repoURL: 'https://github.com/Y-RyuZU/CloudflareIngressController.git'
         targetRevision: HEAD
         path: '{{path}}'
       destination:
