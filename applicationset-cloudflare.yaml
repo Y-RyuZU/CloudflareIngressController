@@ -17,7 +17,7 @@ spec:
           - path: applicationset-cloudflare.yaml
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{path.basename}}-cloudflare-ingress-controller'
       labels:
         app.kubernetes.io/managed-by: argocd
     spec:
