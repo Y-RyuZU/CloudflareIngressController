@@ -10,11 +10,6 @@ spec:
         revision: HEAD
         directories:
           - path: overlays/*
-    - git:
-        repoURL: 'git@github.com:Y-RyuZU/CloudflareIngressController.git'
-        revision: HEAD
-        files:
-          - path: applicationset-cloudflare.yaml
   template:
     metadata:
       name: '{{path.basename}}'
