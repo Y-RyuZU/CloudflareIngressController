@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rustdesk-server
+  labels:
+    app: rustdesk-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: rustdesk-server
+  template:
+    metadata:
+      labels:
+        app: rustdesk-server
+    spec:
+      containers:
+        - name: hbbs
+          image: rustdesk/rustdesk-server:1.1.15
+          # -r: relay address advertised to clients (external FQDN via VyOS DNAT)
+          # -k _: reject clients that do not present this server's public key
+          command: ["hbbs", "-r", "rustdesk.ryuzu.dev:21117", "-k", "_"]
+          ports:
+            - name: hbbs-punch
+              containerPort: 21115
+              protocol: TCP
+            - name: hbbs-id-tcp
+              containerPort: 21116
+              protocol: TCP
+            - name: hbbs-id-udp
+              containerPort: 21116
+              protocol: UDP
+          volumeMounts:
+            - name: data
+              mountPath: /root
+        - name: hbbr
+          image: rustdesk/rustdesk-server:1.1.15
+          command: ["hbbr", "-k", "_"]
+          ports:
+            - name: hbbr-relay
+              containerPort: 21117
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /root
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: rustdesk-data
