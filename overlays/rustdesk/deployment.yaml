@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: hbbs
-          image: rustdesk/rustdesk-server:1.1.15
+          image: rustdesk/rustdesk-server:1.1.16
           # -r: relay address advertised to clients (external FQDN via VyOS DNAT)
           # -k _: reject clients that do not present this server's public key
           command: ["hbbs", "-r", "rustdesk.ryuzu.dev:21117", "-k", "_"]
@@ -36,7 +36,7 @@ spec:
             - name: data
               mountPath: /root
         - name: hbbr
-          image: rustdesk/rustdesk-server:1.1.15
+          image: rustdesk/rustdesk-server:1.1.16
           command: ["hbbr", "-k", "_"]
           ports:
             - name: hbbr-relay
