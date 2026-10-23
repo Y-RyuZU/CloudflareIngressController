@@ -1,0 +1,13 @@
+# Proxmox VE web UI on the PVE host "main" (outside the cluster).
+# Selectorless Service + manual EndpointSlice so the tunnel ingress
+# controller can route pve.ryuzu.dev to it; WAN 8006 stays closed.
+apiVersion: v1
+kind: Service
+metadata:
+  name: pve
+spec:
+  ports:
+    - name: https
+      port: 8006
+      targetPort: 8006
+      protocol: TCP
