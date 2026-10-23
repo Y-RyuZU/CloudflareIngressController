@@ -1,0 +1,14 @@
+# SSH on the VM "diverse" (pve3 VM 112, outside the cluster).
+# Selectorless Service + manual EndpointSlice so ssh-diverse.ryuzu.dev reaches
+# it through the tunnel behind Cloudflare Access; replaces the WAN 2022 forward.
+# Client: ProxyCommand cloudflared access ssh --hostname ssh-diverse.ryuzu.dev
+apiVersion: v1
+kind: Service
+metadata:
+  name: diverse-ssh
+spec:
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: 22
+      protocol: TCP
