@@ -8,3 +8,9 @@ kubectl apply --server-side -f https://github.com/cert-manager/cert-manager/rele
 ```
 
 The `kubedash.ryuzu.dev` Ingress now targets the maintained Headlamp service (Helm chart 0.46.0), rather than the retired Kubernetes Dashboard.
+
+Headlamp uses the existing Cloudflare Access gate and a separate Kubernetes operator identity. On the selected cluster, generate an expiring login token with:
+
+```sh
+kubectl -n kube-system create token headlamp-operator --duration=1h
+```
